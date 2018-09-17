@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/test.jsp">
+		이름 : <input type="text" name="name" id="name"><br>
+		나이 : <input type="number" name="age" id="age"><br>
+		<button type="button" onclick="goAjax()">전송</button><!-- from태그에 속하고 name이 있어야된다. -->
+	</form>
+	<script>
+		function goAjax() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() { // all소문자// on이 붙으면 이벤트
+				// ready준비 state상태 change바꿈  ready state 바뀔때마 밑에껄 실행하라
+				// 0(값이 바뀌기 전) 1(서버가 받으면) 2(요청을 서버가 이해하면) 3((요청제대로 수행)or(요청제대로 수행못함)) 4(최종적으로 서버가 응답을 끝냈을때(결과 말하기))
+				if (xhr.readyState == 4) {
+					alert(xhr.response);
+				}
+			}
+			var name = document.querySelector("#name").value;
+			var age = document.querySelector("#age").value;
+			var param = '?name=' + name + '&age=' + age;
+			xhr.open('GET', '/test.jsp'+param); // get방식으로 , 요청주소(메소드)
+			// jsp로 갔다가 와서 보여주는 것
+			xhr.send(); // 보내다.
+		}
+	</script>
+</body>
+</html>
